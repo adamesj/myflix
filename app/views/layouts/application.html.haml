@@ -6,7 +6,13 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
-    = render 'shared/header'
-    = render 'shared/messages'
-    = yield
+
+  %body{:class => "#{controller_name} #{action_name}" }
+    %header
+      = render 'shared/header'
+      = render 'shared/messages'
+    .container-fluid
+      = yield
+      %section.content.clearfix
+      %footer
+        &copy 2017 MyFLiX
