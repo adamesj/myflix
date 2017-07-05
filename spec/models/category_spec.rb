@@ -23,4 +23,9 @@ RSpec.describe Category, type: :model do
     category.valid?
     expect(category.errors[:name]).to include("can't be blank")
   end
+
+  it "should have many videos" do
+    category = Category.reflect_on_association(:videos)
+    expect(category.macro).to eq(:has_many)
+  end
 end
