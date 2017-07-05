@@ -3,9 +3,7 @@ Rails.application.routes.draw do
 
   root 'videos#index'
 
-  resources :videos
-
-  resources :videos, only: [:index] do
+  resources :videos, only: [:show] do
     collection do
       get 'search', to: 'videos#search'
     end

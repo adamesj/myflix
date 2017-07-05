@@ -1,0 +1,4 @@
+- @results.each do |video|
+  %article.video_category
+    .videos.span2
+      = link_to image_tag(video.small_cover_url, class: "img-responsive", id: "small_vid_cover"), video
