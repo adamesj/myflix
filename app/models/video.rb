@@ -6,7 +6,7 @@ class Video < ActiveRecord::Base
 
   def self.search_by_title(search_term)
     return [] if search_term.blank?
-    where("title LIKE ?", "%#{search_term}%").order("created_at DESC")
+    where("lower(title) LIKE lower(?)", "%#{search_term}%").order("created_at DESC")
     # the percentage symbol surrounding the interpolated search_term
     # will return results that partially match what the user enters
   end
