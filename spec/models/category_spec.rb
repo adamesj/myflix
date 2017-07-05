@@ -28,4 +28,6 @@ RSpec.describe Category, type: :model do
     category = Category.reflect_on_association(:videos)
     expect(category.macro).to eq(:has_many)
   end
+
+  # can also use: it { should have_many(:videos) }
 end
