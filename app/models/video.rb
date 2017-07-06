@@ -3,4 +3,11 @@ class Video < ActiveRecord::Base
   validates :title, :description, presence: true
   validates :title, length: { minimum: 2 }
   validates :title, uniqueness: true
+
+  def self.search_by_title(search_term)
+    return [] if search_term.blank?
+    where("lower(title) LIKE lower(?)", "%#{search_term}%").order("created_at DESC")
+    # the percentage symbol surrounding the interpolated search_term
+    # will return results that partially match what the user enters
+  end
 end
