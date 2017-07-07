@@ -5,7 +5,8 @@ class Category < ActiveRecord::Base
 
   def recent_videos
     if videos.length >= 6
-      videos.limit(6).order("created_at DESC")
+      videos.first(6).order("created_at DESC")
+      # returns the first six videos that were most recently created
     else
       videos.all
     # returns the six last videos

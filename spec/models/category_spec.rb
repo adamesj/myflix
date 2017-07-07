@@ -51,6 +51,7 @@ RSpec.describe Category, type: :model do
 
     it "returns six videos if there are more than six videos" do
       thriller = Category.create(name: "Thriller")
+      # 7.times { Video.create(title: "foo", description: "bar", category_id: thriller.id) }
       batman = Video.create(title: "The Dark Knight", description: "Batman faces the Joker while Harvey pledges to save Gotham City.", category_id: thriller.id)
       island = Video.create(title: "Shutter Island", description: "Dicaprio explores an abandoned Asylum, or so he thinks.", category_id: thriller.id)
       inception = Video.create(title: "Inception", description: "Dom Cobb is a thief with the rare ability to enter people's dreams", category_id: thriller.id)
