@@ -17,14 +17,14 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
 
-  # config.include Devise::Test::ControllerHelpers, type: :controller
-  # config.include Devise::Test::ControllerHelpers, type: :view
-  # config.include Devise::Test::IntegrationHelpers, type: :feature
-  # config.include Warden::Test::Helpers
-  # config.include ApplicationHelper
-  # config.after :each do
-  #   Warden.test_reset!
-  # end
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Warden::Test::Helpers
+  config.include ApplicationHelper
+  config.after :each do
+    Warden.test_reset!
+  end
 
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|

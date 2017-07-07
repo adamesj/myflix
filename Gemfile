@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'high_voltage', '~> 3.0.0'
+gem 'devise'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
@@ -46,6 +48,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'chromedriver-helper'
   gem 'vcr'
+  gem 'rails-controller-testing'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

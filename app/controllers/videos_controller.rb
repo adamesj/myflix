@@ -1,5 +1,6 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show]
+  before_action :authenticate_user!
 
   def index
     @categories = Category.all

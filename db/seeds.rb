@@ -10,6 +10,10 @@ tv_comedy = Category.create(
   name: 'TV Comedies'
 )
 
+tv_drama = Category.create(
+  name: 'TV Dramas'
+)
+
 Video.create(
   title: 'Parks and Recreation',
   description: 'Leslie Knope, a midlevel bureaucrat in an Indiana Parks and Recreation Department,
@@ -72,11 +76,21 @@ Video.create(
 )
 
 Video.create(
+  title: "Futurama",
+  description: "Avid fantasy football fans try to balance their time between the league and their real lives.
+  It becomes a challenge, though, when the good-natured competition gives way to a win-at-all-costs mentality, which begins to spill over into their relationships and even the workplace.
+  It's a cutthroat competition to win the league -- and the bragging rights that come with the feat. The sitcom features a plethora of cameos by real-life NFL players, who play themselves on the series.",
+  small_cover_url: 'https://assets.fxnetworks.com/cms/prod/shows/theleague/photos/web_largecoverart_series_the-league_270x398.jpg',
+  large_cover_url: 'https://secure.netflix.com/us/boxshots/tv_sdp_s/70157187.jpg',
+  category_id: tv_comedy.id
+)
+
+Video.create(
   title: "Family Guy",
   description: "Several friends own Paddy's Pub, a neighborhood bar in Philadelphia, and try to find their way in the world of work and relationships.
   But often, they can't get out of their own way, leading to uncomfortable situations, which usually worsen before improving.
   The gang includes twin siblings Dennis and Sweet Dee Reynolds, along with their longtime friends, Charlie Kelly and Ronald 'Mac' McDonald.",
   small_cover_url: 'https://resizing.flixster.com/tkQIkw13FY9nIkbhGpdgpqjiSe8=/206x305/v1.dDsyMjM0ODM7ajsxNzM3MjsxMjAwOzE2MDA7MjQwMA',
   large_cover_url: 'https://secure.netflix.com/us/boxshots/tv_sdp_s/70136141.jpg',
-  category_id: tv_comedy.id
+  category_id: tv_drama.id
 )

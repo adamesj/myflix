@@ -1,11 +1,11 @@
 class Category < ActiveRecord::Base
-  has_many :videos
+  has_many :videos, -> { order(:created_at) } # created_at DESC
   # because of the has_many association, we can call videos in the category model
   validates :name, presence: true
 
   def recent_videos
     if videos.length >= 6
-      videos.first(6).order("created_at DESC")
+      videos.first(6)
       # returns the first six videos that were most recently created
     else
       videos.all
