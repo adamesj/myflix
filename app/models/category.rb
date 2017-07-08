@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Category < ActiveRecord::Base
   has_many :videos, -> { order(:created_at) } # created_at DESC
   # because of the has_many association, we can call videos in the category model

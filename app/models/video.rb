@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: videos
+#
+#  id              :integer          not null, primary key
+#  title           :string
+#  description     :text
+#  small_cover_url :string
+#  large_cover_url :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  category_id     :integer
+#
+
 class Video < ActiveRecord::Base
   belongs_to :category
   validates :title, :description, presence: true

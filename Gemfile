@@ -19,6 +19,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'high_voltage', '~> 3.0.0'
 gem 'devise'
+gem 'annotate'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
