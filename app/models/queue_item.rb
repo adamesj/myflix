@@ -3,7 +3,9 @@ class QueueItem < ActiveRecord::Base
   belongs_to :video
 
   delegate :category, to: :video
+  # queue_item.video.category
   delegate :title, to: :video, prefix: :video
+  # queue_item.video_title
 
   # def video_title
   #   video.title
