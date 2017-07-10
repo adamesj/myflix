@@ -70,4 +70,34 @@ RSpec.describe QueueItemsController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
   end
+
+  describe "DELETE destroy" do
+    it "redirects to the my queue page" do
+      sign_in(user)
+      queue_item = create(:queue_item, user: user, video: video)
+      delete :destroy, params: {id: queue_item.id}
+      expect(response).to redirect_to my_queue_path
+    end
+
+    it "deletes the queue item" do
+      sign_in(user)
+      queue_item = create(:queue_item, user: user, video: video)
+      delete :destroy, params: {id: queue_item.id}
+      expect(QueueItem.count).to eq 0
+    end
+
+    it "does not delete the queue item if the queue item is not in the current user's queue" do
+      bernard = create(:user, email: "feeldbern@mail.com")
+      sign_in(bernard)
+      queue_item = create(:queue_item, user: user, video: video)
+      delete :destroy, params: {id: queue_item.id}
+      expect(QueueItem.count).to eq 1
+    end
+
+    it "redirects to the sign in page for unauthenticated users" do
+      queue_item = create(:queue_item, user: user, video: video)
+      delete :destroy, params: {id: queue_item.id}
+      expect(response).to redirect_to new_user_session_path
+    end
+  end
 end
