@@ -38,36 +38,36 @@ RSpec.describe Review, type: :model do
     expect(review.errors[:rating]).to include("can't be blank")
   end
 
-  it "is invalid without a numerical rating" do
+  it "is invalid without body content" do
     review = Review.new(
-      rating: "one",
-      body: "This movie was pretty rad!",
+      rating: 5,
+      body: nil,
       user_id: user.id,
       video_id: video.id
     )
     review.valid?
-    expect(review.errors[:rating]).to include("is not a number")
+    expect(review.errors[:body]).to include("can't be blank")
   end
 
-  it "is invalid if the numerical rating is greater than 5" do
-    review = Review.new(
-      rating: 6,
-      body: "This movie was pretty rad!",
-      user_id: user.id,
-      video_id: video.id
-    )
-    review.valid?
-    expect(review.errors[:rating]).to include("must be less than or equal to 5")
-  end
+  # it "is invalid if the numerical rating is greater than 5" do
+  #   review = Review.new(
+  #     rating: 6,
+  #     body: "This movie was pretty rad!",
+  #     user_id: user.id,
+  #     video_id: video.id
+  #   )
+  #   review.valid?
+  #   expect(review.errors[:rating]).to include("must be less than or equal to 5")
+  # end
 
-  it "is invalid if the numerical rating is less than 0" do
-    review = Review.new(
-      rating: -1,
-      body: "This movie was pretty rad!",
-      user_id: user.id,
-      video_id: video.id
-    )
-    review.valid?
-    expect(review.errors[:rating]).to include("must be greater than or equal to 0")
-  end
+  # it "is invalid if the numerical rating is less than 0" do
+  #   review = Review.new(
+  #     rating: -1,
+  #     body: "This movie was pretty rad!",
+  #     user_id: user.id,
+  #     video_id: video.id
+  #   )
+  #   review.valid?
+  #   expect(review.errors[:rating]).to include("must be greater than or equal to 0")
+  # end
 end

@@ -5,5 +5,12 @@ FactoryGirl.define do
     email                 Faker::Internet.unique.email
     password              "PASSWORD#1"
     password_confirmation "PASSWORD#1"
+
+    factory :user_with_review do
+      after(:build) do |review|
+        review = create(:review_with_video)
+        user.reviews << review
+      end
+    end
   end
 end

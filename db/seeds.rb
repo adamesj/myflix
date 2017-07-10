@@ -6,6 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+user = User.create(
+  first_name: 'Kenny',
+  last_name: 'Powers',
+  email: 'kpowers@mail.com',
+  password: 'password#1',
+  password_confirmation: 'password#1'
+)
+
 tv_comedy = Category.create(
   name: 'TV Comedies'
 )
@@ -14,7 +22,7 @@ tv_drama = Category.create(
   name: 'TV Dramas'
 )
 
-Video.create(
+park = Video.create(
   title: 'Parks and Recreation',
   description: 'Leslie Knope, a midlevel bureaucrat in an Indiana Parks and Recreation Department,
   hopes to beautify her town (and boost her own career) by helping local nurse Ann Perkins
@@ -26,7 +34,7 @@ Video.create(
   category_id: tv_comedy.id
 )
 
-Video.create(
+league = Video.create(
   title: "The League",
   description: "Avid fantasy football fans try to balance their time between the league and their real lives.
   It becomes a challenge, though, when the good-natured competition gives way to a win-at-all-costs mentality, which begins to spill over into their relationships and even the workplace.
@@ -36,7 +44,7 @@ Video.create(
   category_id: tv_comedy.id
 )
 
-Video.create(
+sunny = Video.create(
   title: "It's Always Sunny in Philadelphia",
   description: "Several friends own Paddy's Pub, a neighborhood bar in Philadelphia, and try to find their way in the world of work and relationships.
   But often, they can't get out of their own way, leading to uncomfortable situations, which usually worsen before improving.
@@ -46,7 +54,7 @@ Video.create(
   category_id: tv_comedy.id
 )
 
-Video.create(
+brickle = Video.create(
   title: "Brickleberry",
   description: "Fledgling Brickleberry National Park is facing its demise as a tourist attraction,
   its future in the hands of a dysfunctional group of forest rangers.",
@@ -55,7 +63,7 @@ Video.create(
   category_id: tv_comedy.id
 )
 
-Video.create(
+archer = Video.create(
   title: "Archer",
   description: "Several friends own Paddy's Pub, a neighborhood bar in Philadelphia, and try to find their way in the world of work and relationships.
   But often, they can't get out of their own way, leading to uncomfortable situations, which usually worsen before improving.
@@ -65,7 +73,7 @@ Video.create(
   category_id: tv_comedy.id
 )
 
-Video.create(
+futurama = Video.create(
   title: "Futurama",
   description: "Avid fantasy football fans try to balance their time between the league and their real lives.
   It becomes a challenge, though, when the good-natured competition gives way to a win-at-all-costs mentality, which begins to spill over into their relationships and even the workplace.
@@ -75,8 +83,8 @@ Video.create(
   category_id: tv_comedy.id
 )
 
-Video.create(
-  title: "Futurama",
+simpsons = Video.create(
+  title: "The Simpsons",
   description: "Avid fantasy football fans try to balance their time between the league and their real lives.
   It becomes a challenge, though, when the good-natured competition gives way to a win-at-all-costs mentality, which begins to spill over into their relationships and even the workplace.
   It's a cutthroat competition to win the league -- and the bragging rights that come with the feat. The sitcom features a plethora of cameos by real-life NFL players, who play themselves on the series.",
@@ -85,7 +93,7 @@ Video.create(
   category_id: tv_comedy.id
 )
 
-Video.create(
+family_guy = Video.create(
   title: "Family Guy",
   description: "Several friends own Paddy's Pub, a neighborhood bar in Philadelphia, and try to find their way in the world of work and relationships.
   But often, they can't get out of their own way, leading to uncomfortable situations, which usually worsen before improving.
@@ -93,4 +101,46 @@ Video.create(
   small_cover_url: 'https://resizing.flixster.com/tkQIkw13FY9nIkbhGpdgpqjiSe8=/206x305/v1.dDsyMjM0ODM7ajsxNzM3MjsxMjAwOzE2MDA7MjQwMA',
   large_cover_url: 'https://secure.netflix.com/us/boxshots/tv_sdp_s/70136141.jpg',
   category_id: tv_drama.id
+)
+
+Review.create(
+  rating: 3,
+  body: 'This is an awesome series!',
+  user_id: user.id,
+  video_id: park.id
+)
+
+Review.create(
+  rating: 4,
+  body: 'This is an awesome series!',
+  user_id: user.id,
+  video_id: park.id
+)
+
+Review.create(
+  rating: 5,
+  body: 'I love this show!',
+  user_id: user.id,
+  video_id: park.id
+)
+
+Review.create(
+  rating: 0,
+  body: 'This show sucks!',
+  user_id: user.id,
+  video_id: league.id
+)
+
+Review.create(
+  rating: 4,
+  body: 'This is an awesome series!',
+  user_id: user.id,
+  video_id: league.id
+)
+
+Review.create(
+  rating: 2,
+  body: 'Meh.....',
+  user_id: user.id,
+  video_id: league.id
 )

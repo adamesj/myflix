@@ -3,10 +3,14 @@ Rails.application.routes.draw do
   match '/ui(/:action)', controller: 'ui', via: :get
 
   get 'pages/home' => 'high_voltage/pages#show', id: 'home'
+  get 'my_queue', to: 'queue_items#index'
+
+  resources :categories, only: [:show]
 
   resources :videos, only: [:show] do
     collection do
       get 'search', to: 'videos#search'
     end
+    resources :reviews, only: [:create]
   end
 end

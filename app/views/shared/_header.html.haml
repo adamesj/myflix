@@ -5,9 +5,10 @@
     %li= link_to "Videos"
     %li= link_to "My Queue"
     %li= link_to "People"
-    %li= link_to "Log In", new_user_session_path
     - if user_signed_in?
       %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+    - else
+      %li= link_to "Log In", new_user_session_path
   = form_tag search_videos_path, method: "get", class: "form-inline" do
     = text_field_tag :search_term, "", placeholder: "Search for videos here", class: "form-control"
     = submit_tag "Search", class: "btn btn-default"
