@@ -71,6 +71,81 @@ RSpec.describe QueueItemsController, type: :controller do
     end
   end
 
+  describe "POST update_queue" do
+    context "with valid inputs" do
+
+      it "redirects to the my queue page and reorder queue items" do
+        sign_in(user)
+        queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]}
+        expect(response).to redirect_to my_queue_path
+      end
+
+      it "reorders the queue items" do
+        sign_in(user)
+        queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]}
+        expect(user.queue_items).to eq [queue_item2, queue_item1]
+      end
+
+      it "normalizes the position numbers" do
+        sign_in(user)
+        queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 3}, {id: queue_item2.id, position: 2}]}
+        expect(user.queue_items.map(&:position)).to eq [1,2]
+      end
+    end
+
+    context "with invalid inputs" do
+      it "redirects to the my queue page" do
+        sign_in(user)
+        queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 3.4}, {id: queue_item2.id, position: 1}]}
+        expect(response).to redirect_to my_queue_path
+      end
+
+      it "sets the flash error message" do
+        sign_in(user)
+        queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 3.4}, {id: queue_item2.id, position: 1}]}
+        expect(flash[:error]).to be_present
+      end
+
+      it "does not change the queue items" do
+        sign_in(user)
+        queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 3}, {id: queue_item2.id, position: 2.1}]}
+        expect(queue_item1.reload.position).to eq(1)
+      end
+    end
+
+    context "with unauthenticated users" do
+      it "redirects to the sign in path" do
+        queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 2}, {id: queue_item2.id, position: 1}]}
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "with queue items that do not belong to the current user" do
+      it "does not change the queue items" do
+        bernard = create(:user, email: "feeldbern@mail.com")
+        sign_in(bernard)
+        queue_item1 = create(:queue_item, user: bernard, video: video, position: 1)
+        queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+        post :update_queue, params: {queue_items: [{id: queue_item1.id, position: 3}, {id: queue_item2.id, position: 2}]}
+        expect(queue_item1.reload.position).to eq(1)
+      end
+    end
+  end
+
   describe "DELETE destroy" do
     it "redirects to the my queue page" do
       sign_in(user)
@@ -84,6 +159,14 @@ RSpec.describe QueueItemsController, type: :controller do
       queue_item = create(:queue_item, user: user, video: video)
       delete :destroy, params: {id: queue_item.id}
       expect(QueueItem.count).to eq 0
+    end
+
+    it "normalizes the remaining queue items" do
+      sign_in(user)
+      queue_item1 = create(:queue_item, user: user, video: video, position: 1)
+      queue_item2 = create(:queue_item, user: user, video: video, position: 2)
+      delete :destroy, params: {id: queue_item1.id}
+      expect(QueueItem.first.position).to eq 1
     end
 
     it "does not delete the queue item if the queue item is not in the current user's queue" do

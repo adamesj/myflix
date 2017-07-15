@@ -25,6 +25,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :first_name, :last_name, :password, :email, presence: true
+
   has_many :reviews
-  has_many :queue_items
+  has_many :queue_items, -> { order(:position) }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
