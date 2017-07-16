@@ -18,7 +18,6 @@ class Video < ActiveRecord::Base
 
   validates :title, :description, presence: true
   validates :title, length: { minimum: 2 }
-  # validates :title, uniqueness: true
 
   def self.search_by_title(search_term)
     return [] if search_term.blank?

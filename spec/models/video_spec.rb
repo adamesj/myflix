@@ -53,27 +53,6 @@ RSpec.describe Video, type: :model do
     expect(park.errors[:description]).to include("can't be blank")
   end
 
-  it "is invalid with a duplicate title" do
-    category =  Category.create(name: "TV Comedies")
-    Video.create(
-      title: "Parks and Recreation",
-      description: "You had me at Meat Tornado",
-      small_cover_url: "small_image.jpg",
-      large_cover_url: "large_image.jpg",
-      category_id: category.id
-    )
-    park = Video.new(
-      title: "Parks and Recreation",
-      description: "You had me at Meat Tornado",
-      small_cover_url: "small_image.jpg",
-      large_cover_url: "large_image.jpg",
-      category_id: category.id
-    )
-
-    park.valid?
-    expect(park.errors[:title]).to include("has already been taken")
-  end
-
   describe "search by title" do
     before do
       @category = Category.create(name: "TV Comedies")

@@ -31,6 +31,34 @@ RSpec.describe QueueItem, type: :model do
     end
   end
 
+  describe "#rating=" do
+    it "changes the rating of the review if the rating is present" do
+      user = create(:user)
+      video = create(:video_with_category)
+      review = create(:review, user: user, video: video, rating: 1)
+      queue_item = create(:queue_item, video: video, user: user)
+      queue_item.rating = 5
+      expect(Review.first.rating).to eq 5
+    end
+
+    it "clears the rating of the review if the review is present" do
+      user = create(:user)
+      video = create(:video_with_category)
+      review = create(:review, user: user, video: video, rating: 1)
+      queue_item = create(:queue_item, video: video, user: user)
+      queue_item.rating = nil
+      expect(Review.first.rating).to be_nil
+    end
+
+    it "creates a review with the rating if the review if not present" do
+      user = create(:user)
+      video = create(:video_with_category)
+      queue_item = create(:queue_item, video: video, user: user)
+      queue_item.rating = 4
+      expect(Review.first.rating).to eq 4
+    end
+  end
+
   describe "#category_name" do
     it "returns the category's name of the associated video" do
       user = create(:user)

@@ -36,7 +36,7 @@ RSpec.describe Category, type: :model do
       thriller = Category.create(name: "Thriller")
       batman = Video.create(title: "The Dark Knight", description: "Batman faces the Joker while Harvey pledges to save Gotham City.", category_id: thriller.id)
       island = Video.create(title: "Shutter Island", description: "Dicaprio explores an abandoned Asylum, or so he thinks.", category_id: thriller.id, created_at: 1.day.ago)
-      expect(thriller.recent_videos).to eq [batman, island]
+      expect(thriller.recent_videos).to eq [island, batman]
       # because its a method in the category model, you can call recent_videos on the category
     end
 

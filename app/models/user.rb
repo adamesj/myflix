@@ -33,4 +33,10 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def normalize_queue_position
+    queue_items.each_with_index do |queue_item, index|
+    queue_item.update_attributes(position: index+1)
+    end
+  end
 end
